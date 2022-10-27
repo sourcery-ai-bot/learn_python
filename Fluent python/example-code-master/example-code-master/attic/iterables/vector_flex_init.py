@@ -40,4 +40,4 @@ class Vector:
                 raise TypeError('Vector() takes one iterable argument or at least 2 scalar arguments')
 
     def __repr__(self):
-        return 'Vector' + reprlib.repr(self._components)
+        return f'Vector{reprlib.repr(self._components)}'

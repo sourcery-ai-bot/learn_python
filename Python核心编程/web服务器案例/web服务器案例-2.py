@@ -28,7 +28,7 @@ class HttpServer():
             cli_socket.close()
 
     def start_response(self, status, headers):
-        response_header = 'HTTP/1.1' + status + '\r\n'
+        response_header = f'HTTP/1.1{status}' + '\r\n'
         for header in headers:
             response_header += '%s:%s\r\n' % header
         self.response_header = response_header
@@ -43,7 +43,7 @@ class HttpServer():
 
         # 提取请求方式
         request_start_line = request_lines[0]
-        file_name = re.match(r'\w+ +(/[^ ]*)', request_start_line.decode('utf-8')).group(1)
+        file_name = re.match(r'\w+ +(/[^ ]*)', request_start_line.decode('utf-8'))[1]
 
         if file_name.endswith('.py'):
             try:
@@ -57,7 +57,7 @@ class HttpServer():
                 response_body = m.application(env, self.start_response)
             response = self.response_header + '\r\n' + response_body
         else:
-            if '/' == file_name:
+            if file_name == '/':
                 file_name = '/index.html'
 
             # 提取请求路径

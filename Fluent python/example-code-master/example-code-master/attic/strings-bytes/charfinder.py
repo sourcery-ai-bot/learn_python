@@ -2,11 +2,7 @@
 from unicodedata import name
 import sys
 
-if len(sys.argv) > 1:
-    query = sys.argv[1:]
-else:
-    query = input('search words: ').split()
-
+query = sys.argv[1:] if len(sys.argv) > 1 else input('search words: ').split()
 query = [s.upper() for s in query]
 
 count = 0

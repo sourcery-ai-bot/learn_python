@@ -18,10 +18,7 @@ from clockdeco2 import clock
 def pythagoras(a, b=None, h=None):
     if b is None and h is None:
         raise TypeError('must provide second leg (b) or hypotenuse (h)')
-    if h is None:
-        return math.sqrt(a*a + b*b)
-    else:
-        return math.sqrt(h*h - a*a)
+    return math.sqrt(a*a + b*b) if h is None else math.sqrt(h*h - a*a)
 
 
 if __name__=='__main__':

@@ -37,8 +37,7 @@ def tag(name, *content, cls=None, **attrs):
     else:
         attr_str = ''
     if content:
-        return '\n'.join('<%s%s>%s</%s>' %
-                         (name, attr_str, c, name) for c in content)
+        return '\n'.join(f'<{name}{attr_str}>{c}</{name}>' for c in content)
     else:
-        return '<%s%s />' % (name, attr_str)
+        return f'<{name}{attr_str} />'
 # END TAG_FUNC

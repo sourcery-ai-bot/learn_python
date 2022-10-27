@@ -36,8 +36,7 @@ class Spreadsheet:
 
     def __init__(self, **tools):
         self._cells = {}
-        self._tools = {'__builtins__' : {}}
-        self._tools.update(tools)
+        self._tools = {'__builtins__' : {}} | tools
 
     def __setitem__(self, key, formula):
         try:

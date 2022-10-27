@@ -15,11 +15,7 @@ def demo(bisect_fn):
 
 if __name__ == '__main__':
 
-    if sys.argv[-1] == 'left':    # <4>
-        bisect_fn = bisect.bisect_left
-    else:
-        bisect_fn = bisect.bisect
-
+    bisect_fn = bisect.bisect_left if sys.argv[-1] == 'left' else bisect.bisect
     print('DEMO:', bisect_fn.__name__)  # <5>
     print('haystack ->', ' '.join('%2d' % n for n in HAYSTACK))
     demo(bisect_fn)

@@ -83,11 +83,7 @@ def getinfo():
 def addstuinfo():
     result = getinfo()
 
-    newInfos = {}
-    newInfos["name"] = result[0]
-    newInfos["sex"] = result[1]
-    newInfos["phone"] = result[2]
-
+    newInfos = {"name": result[0], "sex": result[1], "phone": result[2]}
     stuInfos.append(newInfos)
 
 
@@ -101,18 +97,16 @@ def modifyStuinfo():
 
 
 def save2file():
-    f = open("backup.data", "w")
-    f.write(str(stuInfos))
-    f.close()
+    with open("backup.data", "w") as f:
+        f.write(str(stuInfos))
 
 
 def recoverData():
     global stuInfos
-    f = open("backup.data", )
-    content = f.read()
-    stuInfos = eval(content)
-    print(stuInfos)
-    f.close()
+    with open("backup.data", ) as f:
+        content = f.read()
+        stuInfos = eval(content)
+        print(stuInfos)
 
 
 def main():

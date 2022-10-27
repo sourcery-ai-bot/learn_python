@@ -137,11 +137,11 @@ class HttpServer():
 
         # 提取请求方式
         request_start_line = request_lines[0]
-        file_name = re.match(r'\w+ +(/[^ ]*)', request_start_line.decode('utf-8')).group(1)
+        file_name = re.match(r'\w+ +(/[^ ]*)', request_start_line.decode('utf-8'))[1]
         print('*******')
         print(file_name)
 
-        if '/' == file_name:
+        if file_name == '/':
             file_name = '/index.html'
 
         # 提取请求路径

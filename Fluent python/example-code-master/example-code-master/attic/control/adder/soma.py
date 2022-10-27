@@ -27,8 +27,7 @@ def main():
     coro = somadora()
     next(coro)
     while True:
-        item = ler_num()
-        if item:
+        if item := ler_num():
             coro.send(item)
         else:
             print('Fechando corotina...')

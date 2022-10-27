@@ -29,9 +29,11 @@ def load_fixture(verbose=False):
             if verbose:
                 print(repr(v), '\t->', spherical)
             diff = abs(abs(v) - spherical[0])
-            assert diff < EPSILON, 'expected {}, got {}'.format(spherical[0], abs(v))
-            assert all(abs(av - af) < EPSILON for av, af in zip(v.angles(), spherical[1:])), (
-                'expected {}, got {}'.format(spherical[1:], list(v.angles())))
+            assert diff < EPSILON, f'expected {spherical[0]}, got {abs(v)}'
+            assert all(
+                abs(av - af) < EPSILON
+                for av, af in zip(v.angles(), spherical[1:])
+            ), f'expected {spherical[1:]}, got {list(v.angles())}'
 
 if __name__=='__main__':
     load_fixture('-v' in sys.argv)

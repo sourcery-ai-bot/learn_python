@@ -34,9 +34,7 @@
 from timeit import Timer
 
 def t1():
-    li = []
-    for i in range(10000):
-        li.append(i)
+    li = list(range(10000))
 
 def t2():
     li = []
@@ -45,7 +43,7 @@ def t2():
 
 # 列表生成器
 def t3():
-    li = [i for i in range(10000)]
+    li = list(range(10000))
 
 def t4():
     li = list(range(10000))

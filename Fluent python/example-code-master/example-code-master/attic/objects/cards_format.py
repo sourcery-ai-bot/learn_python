@@ -73,8 +73,7 @@ class Suite(Enum):
 
     def __format__(self, format_spec):
         use_spec = 's' if format_spec == '' else format_spec
-        format_method = getattr(self, 'format_' + use_spec, None)
-        if format_method:
+        if format_method := getattr(self, f'format_{use_spec}', None):
             return format_method()
 
         msg = "Invalid format spec {!r} for object of type 'Suite'"
@@ -84,10 +83,7 @@ class Card:
 
     def __init__(self, rank, suite, *, long_rank=None):
         self.rank = rank
-        if long_rank is None:
-            self.long_rank = self.rank
-        else:
-            self.long_rank = long_rank
+        self.long_rank = self.rank if long_rank is None else long_rank
         self.suite = suite
 
     def __str__(self):

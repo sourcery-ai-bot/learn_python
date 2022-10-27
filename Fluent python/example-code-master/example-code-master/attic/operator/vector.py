@@ -98,7 +98,7 @@ class Vector:
         self._components = tuple(components)  # <2>
 
     def __repr__(self):
-        return 'Vector' + (reprlib.repr(self._components))  # <3>
+        return f'Vector{reprlib.repr(self._components)}'
 
     def __iter__(self):
         return iter(self._components)  # <4>

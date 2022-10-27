@@ -42,8 +42,8 @@ def initial_report(cc_list, actual_req, server_label):
     if len(cc_list) <= 10:
         cc_msg = ', '.join(cc_list)
     else:
-        cc_msg = 'from {} to {}'.format(cc_list[0], cc_list[-1])
-    print('{} site: {}'.format(server_label, SERVERS[server_label]))
+        cc_msg = f'from {cc_list[0]} to {cc_list[-1]}'
+    print(f'{server_label} site: {SERVERS[server_label]}')
     msg = 'Searching for {} flag{}: {}'
     plural = 's' if len(cc_list) != 1 else ''
     print(msg.format(len(cc_list), plural, cc_msg))
@@ -62,7 +62,7 @@ def final_report(cc_list, counter, start_time):
         print(counter[HTTPStatus.not_found], 'not found.')
     if counter[HTTPStatus.error]:
         plural = 's' if counter[HTTPStatus.error] != 1 else ''
-        print('{} error{}.'.format(counter[HTTPStatus.error], plural))
+        print(f'{counter[HTTPStatus.error]} error{plural}.')
     print('Elapsed time: {:.2f}s'.format(elapsed))
 
 
@@ -83,7 +83,7 @@ def expand_cc_args(every_cc, all_cc, cc_args, limit):
                 codes.add(cc)
             else:
                 msg = 'each CC argument must be A to Z or AA to ZZ.'
-                raise ValueError('*** Usage error: '+msg)
+                raise ValueError(f'*** Usage error: {msg}')
     return sorted(codes)[:limit]
 
 
@@ -100,14 +100,23 @@ def process_args(default_concur_req):
                 help='get flags for every possible code (AA...ZZ)')
     parser.add_argument('-l', '--limit', metavar='N', type=int,
                 help='limit to N first codes', default=sys.maxsize)
-    parser.add_argument('-m', '--max_req', metavar='CONCURRENT', type=int,
-                default=default_concur_req,
-                help='maximum concurrent requests (default={})'
-                      .format(default_concur_req))
-    parser.add_argument('-s', '--server', metavar='LABEL',
-                default=DEFAULT_SERVER,
-                help='Server to hit; one of {} (default={})'
-                      .format(server_options, DEFAULT_SERVER))
+    parser.add_argument(
+        '-m',
+        '--max_req',
+        metavar='CONCURRENT',
+        type=int,
+        default=default_concur_req,
+        help=f'maximum concurrent requests (default={default_concur_req})',
+    )
+
+    parser.add_argument(
+        '-s',
+        '--server',
+        metavar='LABEL',
+        default=DEFAULT_SERVER,
+        help=f'Server to hit; one of {server_options} (default={DEFAULT_SERVER})',
+    )
+
     parser.add_argument('-v', '--verbose', action='store_true',
                 help='output detailed progress info')
     args = parser.parse_args()

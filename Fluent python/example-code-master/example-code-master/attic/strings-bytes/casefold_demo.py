@@ -14,6 +14,13 @@ for i in range(sys.maxunicode):
         cf_display = ' '.join(cf)
         cf_names = ';'.join(name(c) for c in cf)
         changed += 1
-        print('%4d U+%04x' % (changed, i), char, cf_display, char_name + ' -> ' + cf_names, sep='\t')
+        print(
+            '%4d U+%04x' % (changed, i),
+            char,
+            cf_display,
+            f'{char_name} -> {cf_names}',
+            sep='\t',
+        )
+
 
 print(changed, '/', assigned, '=', changed/assigned*100)

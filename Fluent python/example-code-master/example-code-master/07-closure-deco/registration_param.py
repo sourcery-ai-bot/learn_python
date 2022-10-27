@@ -4,14 +4,14 @@ registry = set()  # <1>
 
 def register(active=True):  # <2>
     def decorate(func):  # <3>
-        print('running register(active=%s)->decorate(%s)'
-              % (active, func))
+        print(f'running register(active={active})->decorate({func})')
         if active:   # <4>
             registry.add(func)
         else:
             registry.discard(func)  # <5>
 
         return func  # <6>
+
     return decorate  # <7>
 
 @register(active=False)  # <8>

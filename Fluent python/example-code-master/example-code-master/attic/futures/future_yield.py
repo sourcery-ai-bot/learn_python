@@ -20,8 +20,7 @@ import asyncio
 @asyncio.coroutine
 def a(future):
     print('a, future:\t', future, hex(id(future)))
-    res = yield from future
-    return res
+    return (yield from future)
 
 def b():
     future = asyncio.Future()

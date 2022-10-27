@@ -4,6 +4,7 @@ as a series of increments accumulating errors versus one addition
 and one multiplication.
 """
 
+
 from fractions import Fraction
 from aritprog_v0 import ArithmeticProgression as APv0
 from aritprog_v1 import ArithmeticProgression as APv1
@@ -22,5 +23,6 @@ if __name__ == '__main__':
         frac = next(ap_frac)
         iteration +=1
 
-    print('iteration: {}\tfraction: {}\tepsilon: {}\tdelta: {}'.
-          format(iteration, frac, epsilon, delta))
+    print(
+        f'iteration: {iteration}\tfraction: {frac}\tepsilon: {epsilon}\tdelta: {delta}'
+    )

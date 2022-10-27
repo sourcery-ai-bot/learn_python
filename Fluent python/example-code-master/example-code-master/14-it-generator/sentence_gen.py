@@ -15,11 +15,10 @@ class Sentence:
         self.words = RE_WORD.findall(text)
 
     def __repr__(self):
-        return 'Sentence(%s)' % reprlib.repr(self.text)
+        return f'Sentence({reprlib.repr(self.text)})'
 
     def __iter__(self):
-        for word in self.words:  # <1>
-            yield word  # <2>
+        yield from self.words
         return  # <3>
 
 # done! <4>

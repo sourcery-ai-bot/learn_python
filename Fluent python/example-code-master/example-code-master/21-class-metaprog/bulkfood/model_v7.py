@@ -8,14 +8,11 @@ class AutoStorage:
         cls = self.__class__
         prefix = cls.__name__
         index = cls.__counter
-        self.storage_name = '_{}#{}'.format(prefix, index)
+        self.storage_name = f'_{prefix}#{index}'
         cls.__counter += 1
 
     def __get__(self, instance, owner):
-        if instance is None:
-            return self
-        else:
-            return getattr(instance, self.storage_name)
+        return self if instance is None else getattr(instance, self.storage_name)
 
     def __set__(self, instance, value):
         setattr(instance, self.storage_name, value)
@@ -59,7 +56,7 @@ class EntityMeta(type):
         for key, attr in attr_dict.items():  # <2>
             if isinstance(attr, Validated):
                 type_name = type(attr).__name__
-                attr.storage_name = '_{}#{}'.format(type_name, key)
+                attr.storage_name = f'_{type_name}#{key}'
 
 class Entity(metaclass=EntityMeta):  # <3>
     """Business entity with validated fields"""

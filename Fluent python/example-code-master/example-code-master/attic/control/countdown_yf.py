@@ -8,8 +8,7 @@ def countdown(n):
         sleep(1)
 
 def foo():
-    for i in range(6, 3, -1):
-        yield i
+    yield from range(6, 3, -1)
     yield from countdown(3)
 
 #for j in foo():
@@ -17,13 +16,11 @@ def foo():
 
 
 def squares(n):
-    yield from [i for i in range(n)]
+    yield from list(range(n))
     yield from [i*i for i in range(n)]
 
 def squares_stupid(n):
-    for i in range(n):
-        yield i
-
+    yield from range(n)
     for i in range(n):
         yield i*i
 

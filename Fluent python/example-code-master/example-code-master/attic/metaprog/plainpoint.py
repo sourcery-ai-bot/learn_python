@@ -16,9 +16,11 @@ class Point(object):
         return 'Point({!r}, {!r})'.format(self.x, self.y)
 
     def __eq__(self, other):
-        if not isinstance(other, Point):
-            return NotImplemented
-        return self.x == other.x and self.y == other.y
+        return (
+            self.x == other.x and self.y == other.y
+            if isinstance(other, Point)
+            else NotImplemented
+        )
 
     def __iter__(self, other):  # support unpacking
         yield self.x

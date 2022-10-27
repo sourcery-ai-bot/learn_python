@@ -34,7 +34,7 @@ class Cache(dict):
 class Test(Cache):
     def __getitem__(self, item):
         # I want to process items differently than attributes:
-        raise Exception("Trying to getitem: %s" % item)
+        raise Exception(f"Trying to getitem: {item}")
 
 if __name__ == "__main__":
     t = Test()

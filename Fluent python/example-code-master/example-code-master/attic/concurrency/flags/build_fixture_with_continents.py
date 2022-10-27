@@ -2,6 +2,7 @@
 Build flags fixture
 """
 
+
 import shutil
 import os
 import json
@@ -22,15 +23,21 @@ with open('countries-continents.tab') as cc_fp:
         iso_cc, gec_cc, cont, name = line.strip().split('\t')
         print(iso_cc, name)
         cc = iso_cc.lower()
-        img_name = cc + '.gif'
+        img_name = f'{cc}.gif'
         from_file = os.path.join(SRC, img_name)
         to_path = os.path.join(DEST, cc)
         os.mkdir(to_path)
         to_file = os.path.join(to_path, img_name)
         shutil.copyfile(from_file, to_file)
         tld_cc = 'uk' if cc == 'gb' else cc
-        metadata = {'country': name, 'continent':CONTINENTS[cont],
-            'iso_cc': iso_cc, 'tld_cc': '.'+tld_cc, 'gec_cc': gec_cc}
+        metadata = {
+            'country': name,
+            'continent': CONTINENTS[cont],
+            'iso_cc': iso_cc,
+            'tld_cc': f'.{tld_cc}',
+            'gec_cc': gec_cc,
+        }
+
 
         with open(os.path.join(to_path, 'metadata.json'), 'wt') as json_fp:
             json.dump(metadata, json_fp, ensure_ascii=True)

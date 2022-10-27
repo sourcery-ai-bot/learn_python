@@ -19,8 +19,6 @@ class SinaPipeline(object):
         filename = sonUrls[7:-6].replace('/', '-')
         filename += '.txt'
 
-        fp = open(item['subFilename'] + '/' + filename, 'w')
-        fp.write(item['content'])
-        fp.close()
-
+        with open(item['subFilename'] + '/' + filename, 'w') as fp:
+            fp.write(item['content'])
         return item

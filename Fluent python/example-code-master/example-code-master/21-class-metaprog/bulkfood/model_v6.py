@@ -8,14 +8,11 @@ class AutoStorage:
         cls = self.__class__
         prefix = cls.__name__
         index = cls.__counter
-        self.storage_name = '_{}#{}'.format(prefix, index)
+        self.storage_name = f'_{prefix}#{index}'
         cls.__counter += 1
 
     def __get__(self, instance, owner):
-        if instance is None:
-            return self
-        else:
-            return getattr(instance, self.storage_name)
+        return self if instance is None else getattr(instance, self.storage_name)
 
     def __set__(self, instance, value):
         setattr(instance, self.storage_name, value)
@@ -55,6 +52,6 @@ def entity(cls):  # <1>
     for key, attr in cls.__dict__.items():  # <2>
         if isinstance(attr, Validated):  # <3>
             type_name = type(attr).__name__
-            attr.storage_name = '_{}#{}'.format(type_name, key)  # <4>
+            attr.storage_name = f'_{type_name}#{key}'
     return cls  # <5>
 # END MODEL_V6

@@ -21,15 +21,14 @@ from flags import BASE_URL, save_flag, show, main  # <2>
 def get_flag(cc):
     url = '{}/{cc}/{cc}.gif'.format(BASE_URL, cc=cc.lower())
     resp = yield from aiohttp.request('GET', url)  # <4>
-    image = yield from resp.read()  # <5>
-    return image
+    return (yield from resp.read())
 
 
 @asyncio.coroutine
 def download_one(cc):  # <6>
     image = yield from get_flag(cc)  # <7>
     show(cc)
-    save_flag(image, cc.lower() + '.gif')
+    save_flag(image, f'{cc.lower()}.gif')
     return cc
 
 

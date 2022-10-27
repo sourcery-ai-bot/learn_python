@@ -8,15 +8,11 @@ fibo_seq = [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610,
 from functools import lru_cache
 
 def fibonacci(n):
-    if n < 2:
-        return n
-    return fibonacci(n-2) + fibonacci(n-1)
+    return n if n < 2 else fibonacci(n-2) + fibonacci(n-1)
 
 @lru_cache()
 def fibonacci2(n):
-    if n < 2:
-        return n
-    return fibonacci2(n-2) + fibonacci2(n-1)
+    return n if n < 2 else fibonacci2(n-2) + fibonacci2(n-1)
 
 def memoize(func):
     '''simplest memoizing decorator'''

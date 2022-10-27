@@ -46,5 +46,5 @@ clientSocket.send('haha'.encode('gb2312'))
 
 recvData = clientSocket.recv(1024)
 
-print('recvData %s' % recvData)
+print(f'recvData {recvData}')
 clientSocket.close()

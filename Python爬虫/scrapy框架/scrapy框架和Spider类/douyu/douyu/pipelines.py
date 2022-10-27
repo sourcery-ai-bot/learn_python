@@ -22,8 +22,12 @@ class ImagesPipeline(ImagesPipeline):
     def item_completed(self, result, item, info):
         image_path = [x["path"] for ok, x in result if ok]
 
-        os.rename(self.IMAGES_STORE + "/" + image_path[0], self.IMAGES_STORE + "/" + item["nickname"] + ".jpg")
+        os.rename(
+            f"{self.IMAGES_STORE}/{image_path[0]}",
+            f"{self.IMAGES_STORE}/" + item["nickname"] + ".jpg",
+        )
 
-        item["imagePath"] = self.IMAGES_STORE + "/" + item["nickname"]
+
+        item["imagePath"] = f"{self.IMAGES_STORE}/" + item["nickname"]
 
         return item

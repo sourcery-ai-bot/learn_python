@@ -25,7 +25,7 @@ MAX_WORKERS = 20
 def download_one(cc):
     image = get_flag(cc)
     show(cc)
-    save_flag(image, cc.lower() + '.gif')
+    save_flag(image, f'{cc.lower()}.gif')
     return cc
 
 
@@ -41,9 +41,9 @@ def download_many(cc_list):
             print(msg.format(cc, future))  # <6>
 
         results = []
+        msg = '{} result: {!r}'
         for future in futures.as_completed(to_do):  # <7>
             res = future.result()  # <8>
-            msg = '{} result: {!r}'
             print(msg.format(future, res)) # <9>
             results.append(res)
 

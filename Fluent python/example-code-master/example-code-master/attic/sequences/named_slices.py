@@ -15,7 +15,5 @@ structure = dict(
 )
 
 for line in invoice.split('\n')[2:]:
-    line_item = {}
-    for field, chunk in structure.items():
-        line_item[field] = line[chunk].strip()
+    line_item = {field: line[chunk].strip() for field, chunk in structure.items()}
     print(line_item)

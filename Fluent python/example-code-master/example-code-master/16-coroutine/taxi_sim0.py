@@ -47,10 +47,10 @@ def compute_delay(interval):
     return int(random.expovariate(1/interval)) + 1
 
 # BEGIN TAXI_PROCESS
-def taxi_process(ident, trips, start_time=0):  # <1>
+def taxi_process(ident, trips, start_time=0):    # <1>
     """Yield to simulator issuing event at each state change"""
     time = yield Event(start_time, ident, 'leave garage')  # <2>
-    for i in range(trips):  # <3>
+    for _ in range(trips):
         prowling_ends = time + compute_delay(SEARCH_DURATION)  # <4>
         time = yield Event(prowling_ends, ident, 'pick up passenger')  # <5>
 
@@ -118,14 +118,22 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(
                         description='Taxi fleet simulator.')
-    parser.add_argument('-e', '--end-time', type=int,
-                        default=DEFAULT_END_TIME,
-                        help='simulation end time; default = %s'
-                        % DEFAULT_END_TIME)
-    parser.add_argument('-t', '--taxis', type=int,
-                        default=DEFAULT_NUMBER_OF_TAXIS,
-                        help='number of taxis running; default = %s'
-                        % DEFAULT_NUMBER_OF_TAXIS)
+    parser.add_argument(
+        '-e',
+        '--end-time',
+        type=int,
+        default=DEFAULT_END_TIME,
+        help=f'simulation end time; default = {DEFAULT_END_TIME}',
+    )
+
+    parser.add_argument(
+        '-t',
+        '--taxis',
+        type=int,
+        default=DEFAULT_NUMBER_OF_TAXIS,
+        help=f'number of taxis running; default = {DEFAULT_NUMBER_OF_TAXIS}',
+    )
+
     parser.add_argument('-s', '--seed', type=int, default=None,
                         help='random generator seed (for testing)')
 

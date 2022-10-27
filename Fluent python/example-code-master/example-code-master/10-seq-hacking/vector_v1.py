@@ -100,7 +100,7 @@ class Vector:
     def __repr__(self):
         components = reprlib.repr(self._components)  # <3>
         components = components[components.find('['):-1]  # <4>
-        return 'Vector({})'.format(components)
+        return f'Vector({components})'
 
     def __str__(self):
         return str(tuple(self))

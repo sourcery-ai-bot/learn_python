@@ -58,7 +58,7 @@ def download_many(cc_list, base_url, verbose, concur_req):
             counter[status] += 1
             if verbose and error_msg:
                 cc = to_do_map[future]  # <16>
-                print('*** Error for {}: {}'.format(cc, error_msg))
+                print(f'*** Error for {cc}: {error_msg}')
 
     return counter
 

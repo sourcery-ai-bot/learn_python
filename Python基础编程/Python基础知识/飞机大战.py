@@ -24,11 +24,7 @@ class Plane(object):
         # 对象中的属性能不直接取，就不直接取，写一个方法取
 
         # 存放需要删除的对象信息
-        needDelItemList = []
-
-        for i in self.bulletList:
-            if i.judge():
-                needDelItemList.append(i)
+        needDelItemList = [i for i in self.bulletList if i.judge()]
 
         for i in needDelItemList:
             self.bulletList.remove(i)
@@ -148,10 +144,7 @@ class PublicBullet(object):
             self.y -= 2
 
     def judge(self):
-        if self.y > 800 or self.y < 0:
-            return True
-        else:
-            return False
+        return self.y > 800 or self.y < 0
 
 
 if __name__ == "__main__":
@@ -183,10 +176,10 @@ if __name__ == "__main__":
                 print("exit")
                 exit()
             elif event.type == KEYDOWN:
-                if event.key == K_a or event.key == K_LEFT:
+                if event.key in [K_a, K_LEFT]:
                     heroplane.moveleft()
                     print('left')
-                elif event.key == K_d or event.key == K_RIGHT:
+                elif event.key in [K_d, K_RIGHT]:
                     heroplane.moveRight()
                     print('right')
                 elif event.key == K_SPACE:

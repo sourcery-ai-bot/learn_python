@@ -89,8 +89,5 @@ def main(get_terms):
 
 
 if __name__ == '__main__':
-    if len(sys.argv) > 1:
-        get_terms = (float(n) for n in sys.argv[1:])
-    else:
-        get_terms = prompt()
+    get_terms = (float(n) for n in sys.argv[1:]) if len(sys.argv) > 1 else prompt()
     main(get_terms)

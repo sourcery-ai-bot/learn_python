@@ -49,10 +49,7 @@
 import random
 def test(n):
     newList=[]
-    while True:
-        if len(newList)==10:
-            break
-
+    while len(newList) != 10:
         num=random.randint(1,n)
         if num not in newList:
             newList.append(num)

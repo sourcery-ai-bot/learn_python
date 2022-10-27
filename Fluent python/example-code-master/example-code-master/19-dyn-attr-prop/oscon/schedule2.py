@@ -72,18 +72,17 @@ class DbRecord(Record):  # <2>
         try:
             return db[ident]  # <8>
         except TypeError:
-            if db is None:  # <9>
-                msg = "database not set; call '{}.set_db(my_db)'"
-                raise MissingDatabaseError(msg.format(cls.__name__))
-            else:  # <10>
+            if db is not None:
                 raise
+            msg = "database not set; call '{}.set_db(my_db)'"
+            raise MissingDatabaseError(msg.format(cls.__name__))
 
     def __repr__(self):
-        if hasattr(self, 'serial'):  # <11>
-            cls_name = self.__class__.__name__
-            return '<{} serial={!r}>'.format(cls_name, self.serial)
-        else:
-            return super().__repr__()  # <12>
+        return (
+            '<{} serial={!r}>'.format(self.__class__.__name__, self.serial)
+            if hasattr(self, 'serial')
+            else super().__repr__()
+        )
 # END SCHEDULE2_DBRECORD
 
 
@@ -92,7 +91,7 @@ class Event(DbRecord):  # <1>
 
     @property
     def venue(self):
-        key = 'venue.{}'.format(self.venue_serial)
+        key = f'venue.{self.venue_serial}'
         return self.__class__.fetch(key)  # <2>
 
     @property
@@ -100,23 +99,22 @@ class Event(DbRecord):  # <1>
         if not hasattr(self, '_speaker_objs'):  # <3>
             spkr_serials = self.__dict__['speakers']  # <4>
             fetch = self.__class__.fetch  # <5>
-            self._speaker_objs = [fetch('speaker.{}'.format(key))
-                                  for key in spkr_serials]  # <6>
+            self._speaker_objs = [fetch(f'speaker.{key}') for key in spkr_serials]
         return self._speaker_objs  # <7>
 
     def __repr__(self):
-        if hasattr(self, 'name'):  # <8>
-            cls_name = self.__class__.__name__
-            return '<{} {!r}>'.format(cls_name, self.name)
-        else:
-            return super().__repr__()  # <9>
+        return (
+            '<{} {!r}>'.format(self.__class__.__name__, self.name)
+            if hasattr(self, 'name')
+            else super().__repr__()
+        )
 # END SCHEDULE2_EVENT
 
 
 # BEGIN SCHEDULE2_LOAD
 def load_db(db):
     raw_data = osconfeed.load()
-    warnings.warn('loading ' + DB_NAME)
+    warnings.warn(f'loading {DB_NAME}')
     for collection, rec_list in raw_data['Schedule'].items():
         record_type = collection[:-1]  # <1>
         cls_name = record_type.capitalize()  # <2>
@@ -126,7 +124,7 @@ def load_db(db):
         else:
             factory = DbRecord  # <6>
         for record in rec_list:  # <7>
-            key = '{}.{}'.format(record_type, record['serial'])
+            key = f"{record_type}.{record['serial']}"
             record['serial'] = key
             db[key] = factory(**record)  # <8>
 # END SCHEDULE2_LOAD

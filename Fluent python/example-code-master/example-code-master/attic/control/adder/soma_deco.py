@@ -35,8 +35,7 @@ def somadora():
 def main():
     coro = somadora()
     while True:
-        parcela = ler_parcela()
-        if parcela:
+        if parcela := ler_parcela():
             coro.send(parcela)
         else:
             print('Fechando corotina...')

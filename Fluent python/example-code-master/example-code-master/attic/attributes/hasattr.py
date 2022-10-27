@@ -30,7 +30,7 @@ test_keys = 'hasattr', 'getattr', 'tryget'
 
 def test():
     for test_key in test_keys:
-        test_name = 'test_' + test_key
+        test_name = f'test_{test_key}'
         test = globals()[test_name]
         setup = 'from __main__ import gizmo'
         t_present = min(timeit.repeat(test, setup=setup))

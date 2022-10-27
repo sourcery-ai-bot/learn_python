@@ -49,7 +49,7 @@ def fetch_potd_url(iso_date):
             html = fp.read().decode('utf-8')
             thumb_src = THUMB_SRC_RE.search(html)
             if not thumb_src:
-                msg = 'cannot find thumbnail source for ' + potd_url
+                msg = f'cannot find thumbnail source for {potd_url}'
                 raise ParsingException(msg)
             thumb_url = THUMB_BASE_URL+thumb_src.group(1)
     except urllib.error.HTTPError:
@@ -73,7 +73,7 @@ def fetch_image(iso_date, img_url):
         print('\t' + img_url)
     with contextlib.closing(urllib.request.urlopen(img_url)) as fp:
         img = fp.read()
-    img_filename = iso_date + '__' + img_url.split('/')[-1]
+    img_filename = f'{iso_date}__' + img_url.split('/')[-1]
     if verbose:
         print('\t\twriting %0.1f Kbytes' % (len(img)/1024.0))
     img_path = os.path.join(LOCAL_IMG_PATH, img_filename)

@@ -74,8 +74,7 @@ class CompositeString(object):
         for subfield in self.__expanded:
             if subfield[0] == key:
                 return subfield[1]
-        else:
-            raise KeyError(key)
+        raise KeyError(key)
 
     def __iter__(self):
         return (subfield[0] for subfield in self.__expanded)
@@ -111,18 +110,18 @@ class CompositeField(object):
             value_as_dict = dict(value)
         except TypeError:
             raise TypeError('%r value must be a key-value structure' % self)
-        
+
         for key in value_as_dict:
             if key not in subkeys:
                 raise TypeError('Unexpected keyword %r' % key)
-    
-        self.value = tuple([(key, value_as_dict.get(key,None)) for key in subkeys])
+
+        self.value = tuple((key, value_as_dict.get(key,None)) for key in subkeys)
 
     def __getitem__(self, key):
         return dict(self.value)[key]
 
     def __repr__(self):
-        return "CompositeField(%s)" % str(self.items())
+        return f"CompositeField({str(self.items())})"
 
     def items(self):
         return self.value

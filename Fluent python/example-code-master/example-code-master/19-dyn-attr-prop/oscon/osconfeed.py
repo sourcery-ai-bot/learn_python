@@ -38,7 +38,7 @@ JSON = 'data/osconfeed.json'
 
 def load():
     if not os.path.exists(JSON):
-        msg = 'downloading {} to {}'.format(URL, JSON)
+        msg = f'downloading {URL} to {JSON}'
         warnings.warn(msg)  # <1>
         with urlopen(URL) as remote, open(JSON, 'wb') as local:  # <2>
             local.write(remote.read())

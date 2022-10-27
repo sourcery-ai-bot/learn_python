@@ -40,10 +40,7 @@ else:
                     break
         else:  # <9>
             try:  # <10>
-                if _s is None:  # <11>
-                    _y = next(_i)
-                else:
-                    _y = _i.send(_s)
+                _y = next(_i) if _s is None else _i.send(_s)
             except StopIteration as _e:  # <12>
                 _r = _e.value
                 break

@@ -5,5 +5,5 @@ from clockdeco_param import clock
 def snooze(seconds):
     time.sleep(seconds)
 
-for i in range(3):
+for _ in range(3):
     snooze(.123)

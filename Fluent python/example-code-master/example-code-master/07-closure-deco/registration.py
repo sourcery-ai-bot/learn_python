@@ -3,7 +3,7 @@
 registry = []  # <1>
 
 def register(func):  # <2>
-    print('running register(%s)' % func)  # <3>
+    print(f'running register({func})')
     registry.append(func)  # <4>
     return func  # <5>
 

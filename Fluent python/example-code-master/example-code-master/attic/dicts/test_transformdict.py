@@ -189,7 +189,7 @@ class TestTransformDict(TransformDictTestBase):
             next(it)
         d['Foo'] = 5
         d['BAR'] = 6
-        self.assertEqual(set(x for x in d), {'Foo', 'BAR'})
+        self.assertEqual(set(d), {'Foo', 'BAR'})
 
     def test_first_key_retained(self):
         d = TransformDict(str.lower, {'Foo': 5, 'BAR': 6})
@@ -275,7 +275,8 @@ class TransformDictMappingTests(TransformDictTestBase,
         def pickle_unpickle(obj, proto):
             data = pickle.dumps(obj, proto)
             return pickle.loads(data)
-        for proto in range(0, pickle.HIGHEST_PROTOCOL + 1):
+
+        for proto in range(pickle.HIGHEST_PROTOCOL + 1):
             with self.subTest(pickle_protocol=proto):
                 self.check_deep_copy(partial(pickle_unpickle, proto=proto))
 

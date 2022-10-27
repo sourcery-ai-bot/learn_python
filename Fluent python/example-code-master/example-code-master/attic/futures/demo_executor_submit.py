@@ -25,7 +25,7 @@ def demo_submit():
     display('done?', [future.done() for future in future_list])
     display('Waiting for results...')
     for i, result in enumerate(future.result() for future in future_list):
-        display('result[{}]: {}'.format(i, result))
+        display(f'result[{i}]: {result}')
 
 
 demo_submit()

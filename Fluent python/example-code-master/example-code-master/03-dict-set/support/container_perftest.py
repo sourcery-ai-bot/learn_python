@@ -50,6 +50,6 @@ if __name__=='__main__':
     else:
         verbose = False
     if len(sys.argv) != 2:
-        print('Usage: %s <container_type>' % sys.argv[0])
+        print(f'Usage: {sys.argv[0]} <container_type>')
     else:
         test(sys.argv[1], verbose)

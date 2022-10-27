@@ -174,7 +174,7 @@ class ImagesPipeline(FilesPipeline):
         ## end of deprecation warning block
 
         image_guid = hashlib.sha1(to_bytes(url)).hexdigest()  # change to request.url after deprecation
-        return 'full/%s.jpg' % (image_guid)
+        return f'full/{image_guid}.jpg'
 
     def thumb_path(self, request, thumb_id, response=None, info=None):
         ## start of deprecation warning block (can be removed in the future)
@@ -199,7 +199,7 @@ class ImagesPipeline(FilesPipeline):
         ## end of deprecation warning block
 
         thumb_guid = hashlib.sha1(to_bytes(url)).hexdigest()  # change to request.url after deprecation
-        return 'thumbs/%s/%s.jpg' % (thumb_id, thumb_guid)
+        return f'thumbs/{thumb_id}/{thumb_guid}.jpg'
 
     # deprecated
     def file_key(self, url):

@@ -22,7 +22,7 @@ def send_news():
         # 获取金山字典的内容
         message1 = str(get_news()[0])
         content = str(get_news()[1][17:])
-        message2 = str(content)
+        message2 = content
         # message3 = '那个很适合你的人'
         message3 = '天才李冠东'
 
@@ -30,9 +30,9 @@ def send_news():
         itchat.send(message1, toUserName=Yebaby)
         itchat.send(message2, toUserName=Yebaby)
         itchat.send(message3, toUserName=Yebaby)
-        # 每天发送一次
-        # t = time(86400, send_news())
-        # t.start()
+            # 每天发送一次
+            # t = time(86400, send_news())
+            # t.start()
     except:
         message4 = ''
         itchat.send(message4, toUserName=Yebaby)

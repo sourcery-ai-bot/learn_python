@@ -26,22 +26,19 @@ def num(len_list, len1, list):
     list_new = list
     if len_list > len1:
         return list
-    else:
-        len_temp = len1 - len_list
-        if len_temp < len_list:
-            pass
-        else:
-            len_times = len_temp // len_list
-            list_new = list * (len_times + 1)
-            len_temp = len_temp - len_times * len_list
+    len_temp = len1 - len_list
+    if len_temp >= len_list:
+        len_times = len_temp // len_list
+        list_new = list * (len_times + 1)
+        len_temp = len_temp - len_times * len_list
 
-        # for放在最外面不行，第一次控制的len_temp没有更新回来，i还是按照没有更新len_temp之前的数进行循环，会越界！！！
-        for i in range(len_temp):
-            list_new.append(list[i])
-            print(list[i])
+    # for放在最外面不行，第一次控制的len_temp没有更新回来，i还是按照没有更新len_temp之前的数进行循环，会越界！！！
+    for i in range(len_temp):
+        list_new.append(list[i])
+        print(list[i])
 
-        print(list_new)
-        return list_new
+    print(list_new)
+    return list_new
 
 
 def drawSnake(rad, angle, len1, neckrad):

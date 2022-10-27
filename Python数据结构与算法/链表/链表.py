@@ -114,7 +114,7 @@ class SingleLinkList(object):
 
     def is_empty(self):
         """链表是否为空"""
-        return self.__head == None
+        return self.__head is None
 
     def length(self):
         """链表长度"""

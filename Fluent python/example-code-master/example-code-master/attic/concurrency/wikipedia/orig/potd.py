@@ -26,25 +26,23 @@ def build_page_url(iso_date):
     return POTD_BASE_URL + iso_date
 
 def fetch(url):
-    response = requests.get(url)
-    return response
+    return requests.get(url)
 
 def extract_image_url(html):
     re_image = r'src="(//upload\..*?)"'
     image_url = re.search(re_image, html)
-    return 'http:' + image_url.group(1)
+    return f'http:{image_url[1]}'
 
 def format_date(year, month, day):
     return '{year}-{month:02d}-{day:02d}'.format(**locals())
 
 def list_days_of_month(year, month):
     lastday = calendar.monthrange(year, month)[1]
-    days = [format_date(year, month, day) for day in range(1, lastday + 1)]
-    return days
+    return [format_date(year, month, day) for day in range(1, lastday + 1)]
 
 def build_save_path(iso_date, url):
     head, filename = os.path.split(url)
-    return os.path.join(SAVE_DIR, iso_date+'_'+filename)
+    return os.path.join(SAVE_DIR, f'{iso_date}_{filename}')
 
 def save_one(iso_date, verbose):
     page_url = build_page_url(iso_date)
@@ -56,7 +54,7 @@ def save_one(iso_date, verbose):
     response = fetch(img_url)
     path = build_save_path(iso_date, img_url)
     if verbose:
-        print('saving: '+path)
+        print(f'saving: {path}')
     with io.open(path, 'wb') as fp:
         fp.write(response.content)
     return len(response.content)

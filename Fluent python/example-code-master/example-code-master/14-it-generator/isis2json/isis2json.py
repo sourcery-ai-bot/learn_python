@@ -139,12 +139,12 @@ def write_json(input_gen, file_name, output, qty, skip, id_tag,  # <3>
                 if occurrences is None:
                     msg = 'id tag #%s not found in record %s'
                     if ISIS_MFN_KEY in record:
-                        msg = msg + (' (mfn=%s)' % record[ISIS_MFN_KEY])
+                        msg += f' (mfn={record[ISIS_MFN_KEY]})'
                     raise KeyError(msg % (id_tag, i))
                 if len(occurrences) > 1:
                     msg = 'multiple id tags #%s found in record %s'
                     if ISIS_MFN_KEY in record:
-                        msg = msg + (' (mfn=%s)' % record[ISIS_MFN_KEY])
+                        msg += f' (mfn={record[ISIS_MFN_KEY]})'
                     raise TypeError(msg % (id_tag, i))
                 else:  # ok, we have one and only one id field
                     if isis_json_type == 1:
@@ -156,7 +156,7 @@ def write_json(input_gen, file_name, output, qty, skip, id_tag,  # <3>
                     if id in ids:
                         msg = 'duplicate id %s in tag #%s, record %s'
                         if ISIS_MFN_KEY in record:
-                            msg = msg + (' (mfn=%s)' % record[ISIS_MFN_KEY])
+                            msg += f' (mfn={record[ISIS_MFN_KEY]})'
                         raise TypeError(msg % (id, id_tag, i))
                     record['_id'] = id
                     ids.add(id)

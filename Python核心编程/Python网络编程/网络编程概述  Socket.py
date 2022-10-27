@@ -60,7 +60,7 @@ from socket import *
 def recvData():
     while True:
         recvInfo = udpSocket.recvfrom(1024)
-        print('>>%s:%s' % (str(recvInfo[1]), recvInfo[0]))
+        print(f'>>{str(recvInfo[1])}:{recvInfo[0]}')
 
 # 2.检测键盘，发数据
 def sendData():

@@ -128,7 +128,7 @@ def print_args(name, *args):  # <1>
     arg_names = ['self', 'instance', 'owner']
     if name == 'set':
         arg_names[-1] = 'value'
-    print('{}.__{}__() invoked with args:'.format(cls_name, name))
+    print(f'{cls_name}.__{name}__() invoked with args:')
     for arg_name, value in zip(arg_names, args):
         print('    {:8} = {}'.format(arg_name, value))
 

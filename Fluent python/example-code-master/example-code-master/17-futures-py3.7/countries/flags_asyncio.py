@@ -46,7 +46,7 @@ def show(text):
 async def download_one(session, cc):  # <6>
     image = await get_flag(session, cc)  # <7>
     show(cc)
-    save_flag(image, cc.lower() + '.gif')
+    save_flag(image, f'{cc.lower()}.gif')
     return cc
 
 

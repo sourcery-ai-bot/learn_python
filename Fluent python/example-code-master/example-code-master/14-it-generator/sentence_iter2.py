@@ -17,7 +17,7 @@ class Sentence:
         self.text = text
 
     def __repr__(self):
-        return 'Sentence(%s)' % reprlib.repr(self.text)
+        return f'Sentence({reprlib.repr(self.text)})'
 
     def __iter__(self):
         word_iter = RE_WORD.finditer(self.text)  # <1>

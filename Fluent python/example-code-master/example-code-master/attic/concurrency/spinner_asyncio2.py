@@ -16,7 +16,7 @@ def spinner_func(before='', after=''):
     write, flush = sys.stdout.write, sys.stdout.flush
     while True:
         for char in DISPLAY:
-            msg = '{} {} {}'.format(before, char, after)
+            msg = f'{before} {char} {after}'
             write(msg)
             flush()
             write('\x08' * len(msg))

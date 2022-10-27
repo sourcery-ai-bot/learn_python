@@ -454,7 +454,7 @@ try:
     if len(s)<3:
         raise Test(len(s),3)
 except Test as result:
-    print("输入数据太短，太%s"%result.length)
+    print(f"输入数据太短，太{result.length}")
 
 
 

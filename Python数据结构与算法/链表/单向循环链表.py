@@ -15,7 +15,7 @@ class SingleCycleLinkList(object):
 
     def is_empty(self):
         """链表是否为空"""
-        return self.__head == None
+        return self.__head is None
 
     def length(self):
         """链表长度"""
@@ -127,9 +127,7 @@ class SingleCycleLinkList(object):
             else:
                 cur = cur.next
         # 最后一个元素单独判断，在循环里面指定不到最后一个元素的值
-        if cur.elem == item:
-            return True
-        return False
+        return cur.elem == item
 
 if __name__ == "__main__":
     ll = SingleCycleLinkList()

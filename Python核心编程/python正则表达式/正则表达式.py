@@ -56,10 +56,10 @@ s = '''
 # print(r)
 
 s = 'aa2343ddd'
-print(re.match(r'aa(\d+)', s).group(1))
-print(re.match(r'aa(\d+?)', s).group(1))
-print(re.match(r'aa(\d+)ddd', s).group(1))
-print(re.match(r'aa(\d+?)ddd', s).group(1))
+print(re.match(r'aa(\d+)', s)[1])
+print(re.match(r'aa(\d+?)', s)[1])
+print(re.match(r'aa(\d+)ddd', s)[1])
+print(re.match(r'aa(\d+?)ddd', s)[1])
 
 s = '''<img data-original="https://rpic.douyucdn.cn/appCovers/2016/11/13/1213973_201611131917_small.jpg" src="https://rpic.douyucdn.cn/appCovers/2016/11/13/1213973_201611131917_small.jpg" style="display: inline;">'''
 print(re.search(r'https.+?\.jpg', s).group())

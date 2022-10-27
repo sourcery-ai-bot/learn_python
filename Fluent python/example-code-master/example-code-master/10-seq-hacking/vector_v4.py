@@ -167,7 +167,7 @@ class Vector:
     def __repr__(self):
         components = reprlib.repr(self._components)
         components = components[components.find('['):-1]
-        return 'Vector({})'.format(components)
+        return f'Vector({components})'
 
     def __str__(self):
         return str(tuple(self))

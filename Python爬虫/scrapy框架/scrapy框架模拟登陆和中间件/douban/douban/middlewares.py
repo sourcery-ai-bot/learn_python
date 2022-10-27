@@ -26,6 +26,6 @@ class RandomProxy(object):
             # 对账户密码进行base64编码转换
             base64_userpasswd = base64.b64encode(proxy['user_passwd'])
             # 对应到代理服务器的信令格式里,注意Bsaic 后面有一个空格
-            request.headers['Proxy-Authorization'] = 'Basic ' + base64_userpasswd
+            request.headers['Proxy-Authorization'] = f'Basic {base64_userpasswd}'
 
             request.meta['proxy'] = "http://" + proxy['ip_port']

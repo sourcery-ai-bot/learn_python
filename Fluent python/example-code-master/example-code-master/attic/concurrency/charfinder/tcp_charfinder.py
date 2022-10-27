@@ -32,7 +32,7 @@ def handle_queries(reader, writer):
             writer.write(index.status(query, len(lines)).encode() + CRLF)
 
             yield from writer.drain()
-            print('Sent {} results'.format(len(lines)))
+            print(f'Sent {len(lines)} results')
 
     print('Close the client socket')
     writer.close()
@@ -45,7 +45,7 @@ def main(address='127.0.0.1', port=8888):
     server = loop.run_until_complete(coro)
 
     host = server.sockets[0].getsockname()
-    print('Serving on {}. Hit CTRL-C to stop.'.format(host))
+    print(f'Serving on {host}. Hit CTRL-C to stop.')
     try:
         loop.run_forever()
     except KeyboardInterrupt:  # CTRL+C pressed

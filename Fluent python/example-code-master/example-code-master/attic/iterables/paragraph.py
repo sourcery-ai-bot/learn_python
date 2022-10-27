@@ -37,7 +37,7 @@ class Paragraph:
         self.text = text
 
     def __repr__(self):
-        return 'Paragraph(%s)' % reprlib.repr(self.text)
+        return f'Paragraph({reprlib.repr(self.text)})'
 
     def __iter__(self):
         for match in RE_SENTENCE.finditer(self.text):

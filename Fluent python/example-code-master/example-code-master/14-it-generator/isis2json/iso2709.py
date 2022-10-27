@@ -101,7 +101,7 @@ class IsoRecord(object):
             print('%15s : %r' % (name, getattr(self, name)))
 
     def load_directory(self):
-        fmt_dir = '3s %ss %ss %ss' % (self.fld_len_len, self.start_len, self.impl_len)
+        fmt_dir = f'3s {self.fld_len_len}s {self.start_len}s {self.impl_len}s'
         entry_len = TAG_LEN + self.fld_len_len + self.start_len + self.impl_len
         self.directory = []
         while True:
@@ -133,8 +133,7 @@ class IsoRecord(object):
         return self
 
     def next(self):
-        for field in self.directory:
-            yield(field)
+        yield from self.directory
 
     __next__ = next # Python 3 compatibility
 

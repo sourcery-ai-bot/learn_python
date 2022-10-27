@@ -1,13 +1,13 @@
 import sys
 
 MAX_BITS = len(format(sys.maxsize, 'b'))
-print('%s-bit Python build' % (MAX_BITS + 1))
+print(f'{MAX_BITS + 1}-bit Python build')
 
 def hash_diff(o1, o2):
     h1 = '{:>0{}b}'.format(hash(o1), MAX_BITS)
     h2 = '{:>0{}b}'.format(hash(o2), MAX_BITS)
     diff = ''.join('!' if b1 != b2 else ' ' for b1, b2 in zip(h1, h2))
-    count = '!= {}'.format(diff.count('!'))
+    count = f"!= {diff.count('!')}"
     width = max(len(repr(o1)), len(repr(o2)), 8)
     sep = '-' * (width * 2 + MAX_BITS)
     return '{!r:{width}} {}\n{:{width}} {} {}\n{!r:{width}} {}\n{}'.format(

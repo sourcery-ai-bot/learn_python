@@ -31,7 +31,7 @@ async def handle_queries(reader, writer):  # <3>
             writer.write(index.status(query, len(lines)).encode() + CRLF) # <14>
 
             await writer.drain()  # <15>
-            print('Sent {} results'.format(len(lines)))  # <16>
+            print(f'Sent {len(lines)} results')
 
     print('Close the client socket')  # <17>
     writer.close()  # <18>
@@ -46,7 +46,7 @@ def main(address='127.0.0.1', port=2323):  # <1>
     server = loop.run_until_complete(server_coro) # <3>
 
     host = server.sockets[0].getsockname()  # <4>
-    print('Serving on {}. Hit CTRL-C to stop.'.format(host))  # <5>
+    print(f'Serving on {host}. Hit CTRL-C to stop.')
     try:
         loop.run_forever()  # <6>
     except KeyboardInterrupt:  # CTRL+C pressed

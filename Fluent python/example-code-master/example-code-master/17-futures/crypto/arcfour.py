@@ -15,7 +15,7 @@ def arcfour(key, in_bytes, loops=20):
     # repeat sbox mixing loop, as recommened in CipherSaber-2
     # http://ciphersaber.gurus.com/faq.html#cs2
     j = 0
-    for k in range(loops):
+    for _ in range(loops):
         for i in range(256):
             j = (j + sbox[i] + kbox[i]) % 256
             sbox[i], sbox[j] = sbox[j], sbox[i]

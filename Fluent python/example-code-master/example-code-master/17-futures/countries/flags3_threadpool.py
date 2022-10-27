@@ -30,14 +30,13 @@ def download_one(cc, base_url, verbose=False):
         country = get_country(base_url, cc)
     except requests.exceptions.HTTPError as exc:
         res = exc.response
-        if res.status_code == 404:
-            status = HTTPStatus.not_found
-            msg = 'not found'
-        else:  # <4>
+        if res.status_code != 404:
             raise
+        status = HTTPStatus.not_found
+        msg = 'not found'
     else:
         country = country.replace(' ', '_')
-        save_flag(image, '{}-{}.gif'.format(country, cc))
+        save_flag(image, f'{country}-{cc}.gif')
         status = HTTPStatus.ok
         msg = 'OK'
 
@@ -75,7 +74,7 @@ def download_many(cc_list, base_url, verbose, concur_req):
             counter[status] += 1
             if verbose and error_msg:
                 cc = to_do_map[future]
-                print('*** Error for {}: {}'.format(cc, error_msg))
+                print(f'*** Error for {cc}: {error_msg}')
 
     return counter
 

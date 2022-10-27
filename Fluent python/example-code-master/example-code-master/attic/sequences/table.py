@@ -135,39 +135,36 @@ class Table(collections.UserList):
         return row_widths.pop()
 
     @classmethod
-    def blank(class_, rows, columns, filler=None):
-        return class_([[filler] * columns for i in range(rows)])
+    def blank(cls, rows, columns, filler=None):
+        return cls([[filler] * columns for _ in range(rows)])
 
     def __repr__(self):
-        prefix = '%s(' % self.__class__.__name__
+        prefix = f'{self.__class__.__name__}('
         indent = ' ' * len(prefix)
         rows = (',\n' + indent).join(
                 repr(row) for row in self.data)
         return prefix + rows + ')'
 
     def _get_indexes(self, position):
-        if isinstance(position, tuple):  # multiple indexes
-            if len(position) == 2:  # two indexes: t[i, j]
-                return position
-            else:
-                raise IndexError('index must be [i] or [i, j]')
-        else:  # one index: t[i]
+        if not isinstance(position, tuple):
             return position, None
+        if len(position) == 2:  # two indexes: t[i, j]
+            return position
+        else:
+            raise IndexError('index must be [i] or [i, j]')
 
     def __getitem__(self, position):
         i, j = self._get_indexes(position)
         if isinstance(i, slice):
-            if j is None:  # build sub-table w/ full rows
-                return Table(self.data[position])
-            else:  # build sub-table w/ sub-rows
-                return Table(cells[j] for cells in self.data[i])
-        else:  # i is number
-            try:
-                row = self.data[i]
-            except IndexError:
-                msg = 'no row at index %r of %d-row table'
-                raise IndexError(msg % (position, len(self)))
-            if j is None:  # return row at table[i]
-                return row
-            else:
-                return row[j]  # return row[j] or row[a:b]
+            return (
+                Table(self.data[position])
+                if j is None
+                else Table(cells[j] for cells in self.data[i])
+            )
+
+        try:
+            row = self.data[i]
+        except IndexError:
+            msg = 'no row at index %r of %d-row table'
+            raise IndexError(msg % (position, len(self)))
+        return row if j is None else row[j]

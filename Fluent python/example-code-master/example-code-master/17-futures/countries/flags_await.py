@@ -27,7 +27,7 @@ async def get_flag(cc):  # <3>
 async def download_one(cc):  # <6>
     image = await get_flag(cc)  # <7>
     show(cc)
-    save_flag(image, cc.lower() + '.gif')
+    save_flag(image, f'{cc.lower()}.gif')
     return cc
 
 

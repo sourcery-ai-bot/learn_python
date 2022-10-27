@@ -58,10 +58,7 @@ class Order:  # the Context
         return self.__total
 
     def due(self):
-        if self.promotion is None:
-            discount = 0
-        else:
-            discount = self.promotion.discount(self)
+        discount = 0 if self.promotion is None else self.promotion.discount(self)
         return self.total() - discount
 
     def __repr__(self):
@@ -87,11 +84,7 @@ class BulkItemPromo(Promotion):  # second Concrete Strategy
     """10% discount for each LineItem with 20 or more units"""
 
     def discount(self, order):
-        discount = 0
-        for item in order.cart:
-            if item.quantity >= 20:
-                discount += item.total() * .1
-        return discount
+        return sum(item.total() * .1 for item in order.cart if item.quantity >= 20)
 
 
 class LargeOrderPromo(Promotion):  # third Concrete Strategy
@@ -99,8 +92,6 @@ class LargeOrderPromo(Promotion):  # third Concrete Strategy
 
     def discount(self, order):
         distinct_items = {item.product for item in order.cart}
-        if len(distinct_items) >= 10:
-            return order.total() * .07
-        return 0
+        return order.total() * .07 if len(distinct_items) >= 10 else 0
 
 # END CLASSIC_STRATEGY

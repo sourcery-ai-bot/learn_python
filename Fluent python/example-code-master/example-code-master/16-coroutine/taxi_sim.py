@@ -64,10 +64,10 @@ Event = collections.namedtuple('Event', 'time proc action')
 
 
 # BEGIN TAXI_PROCESS
-def taxi_process(ident, trips, start_time=0):  # <1>
+def taxi_process(ident, trips, start_time=0):    # <1>
     """Yield to simulator issuing event at each state change"""
     time = yield Event(start_time, ident, 'leave garage')  # <2>
-    for i in range(trips):  # <3>
+    for _ in range(trips):
         time = yield Event(time, ident, 'pick up passenger')  # <4>
         time = yield Event(time, ident, 'drop off passenger')  # <5>
 
@@ -125,7 +125,7 @@ def compute_duration(previous_action):
     elif previous_action == 'going home':
         interval = 1
     else:
-        raise ValueError('Unknown previous_action: %s' % previous_action)
+        raise ValueError(f'Unknown previous_action: {previous_action}')
     return int(random.expovariate(1/interval)) + 1
 
 
@@ -145,14 +145,22 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(
                         description='Taxi fleet simulator.')
-    parser.add_argument('-e', '--end-time', type=int,
-                        default=DEFAULT_END_TIME,
-                        help='simulation end time; default = %s'
-                        % DEFAULT_END_TIME)
-    parser.add_argument('-t', '--taxis', type=int,
-                        default=DEFAULT_NUMBER_OF_TAXIS,
-                        help='number of taxis running; default = %s'
-                        % DEFAULT_NUMBER_OF_TAXIS)
+    parser.add_argument(
+        '-e',
+        '--end-time',
+        type=int,
+        default=DEFAULT_END_TIME,
+        help=f'simulation end time; default = {DEFAULT_END_TIME}',
+    )
+
+    parser.add_argument(
+        '-t',
+        '--taxis',
+        type=int,
+        default=DEFAULT_NUMBER_OF_TAXIS,
+        help=f'number of taxis running; default = {DEFAULT_NUMBER_OF_TAXIS}',
+    )
+
     parser.add_argument('-s', '--seed', type=int, default=None,
                         help='random generator seed (for testing)')
 

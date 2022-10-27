@@ -28,11 +28,12 @@ def http_get(url):
     res = yield from aiohttp.request('GET', url)
     if res.status == 200:
         ctype = res.headers.get('Content-type', '').lower()
-        if 'json' in ctype or url.endswith('json'):
-            data = yield from res.json()  # <1>
-        else:
-            data = yield from res.read()  # <2>
-        return data
+        return (
+            (yield from res.json())
+            if 'json' in ctype or url.endswith('json')
+            else (yield from res.read())
+        )
+
 
     elif res.status == 404:
         raise web.HTTPNotFound()
@@ -69,7 +70,7 @@ def download_one(cc, base_url, semaphore, verbose):
         raise FetchError(cc) from exc
     else:
         country = country.replace(' ', '_')
-        filename = '{}-{}.gif'.format(country, cc)
+        filename = f'{country}-{cc}.gif'
         loop = asyncio.get_event_loop()
         loop.run_in_executor(None, save_flag, image, filename)
         status = HTTPStatus.ok
@@ -95,13 +96,13 @@ def downloader_coro(cc_list, base_url, verbose, concur_req):
         try:
             res = yield from future
         except FetchError as exc:
-            country_code = exc.country_code
             try:
                 error_msg = exc.__cause__.args[0]
             except IndexError:
                 error_msg = exc.__cause__.__class__.__name__
             if verbose and error_msg:
                 msg = '*** Error for {}: {}'
+                country_code = exc.country_code
                 print(msg.format(country_code, error_msg))
             status = HTTPStatus.error
         else:

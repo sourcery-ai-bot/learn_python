@@ -136,14 +136,13 @@ import os
 
 def copyFileTask(name, oldFolderName, newFolderNmae, queue):
     "完成copy一个文件的功能"
-    fr = open(oldFolderName + '/' + name)
-    # name是放在目录后面，但一个name，找不到路径的
-    fw = open(newFolderNmae + '/' + name, 'w')
+    with open(f'{oldFolderName}/{name}') as fr:
+            # name是放在目录后面，但一个name，找不到路径的
+        fw = open(f'{newFolderNmae}/{name}', 'w')
 
-    content = fr.read()
-    fw.write(content)
+        content = fr.read()
+        fw.write(content)
 
-    fr.close()
     fw.close()
 
     queue.put(name)
@@ -153,7 +152,7 @@ def main():
     oldFolderName = input('请输入文件夹的名字：')
 
     # 1.创建一个文件夹
-    newFolderNmae = oldFolderName + '复件'
+    newFolderNmae = f'{oldFolderName}复件'
     os.mkdir(newFolderNmae)
 
     # 2.获取old文件夹中的所有的文件夹名

@@ -34,11 +34,11 @@ class Record:
 
 def load_db(db):
     raw_data = osconfeed.load()  # <3>
-    warnings.warn('loading ' + DB_NAME)
+    warnings.warn(f'loading {DB_NAME}')
     for collection, rec_list in raw_data['Schedule'].items():  # <4>
         record_type = collection[:-1]  # <5>
         for record in rec_list:
-            key = '{}.{}'.format(record_type, record['serial'])  # <6>
+            key = f"{record_type}.{record['serial']}"
             record['serial'] = key  # <7>
             db[key] = Record(**record)  # <8>
 

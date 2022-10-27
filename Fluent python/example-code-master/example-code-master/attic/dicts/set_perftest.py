@@ -2,6 +2,7 @@
 Set performance test
 """
 
+
 import timeit
 
 SETUP = '''
@@ -35,10 +36,7 @@ assert found == 500
 
 MAX_EXPONENT = 7
 for collection_type in 'dict.fromkeys set list'.split():
-    if collection_type == 'set':
-        available_tests = tests
-    else:
-        available_tests = tests[:1]
+    available_tests = tests if collection_type == 'set' else tests[:1]
     for test_name, test in available_tests:
         print('*' * 25, collection_type, test_name)
         for n in range(3, MAX_EXPONENT + 1):

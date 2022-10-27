@@ -17,25 +17,20 @@ def chrono(f):
 
 @chrono
 def iadd_joiner(lines):
-    text = ''
-    for line in lines:
-        text += line
-    return text
+    return ''.join(lines)
 
 @chrono
 def list_joiner(lines):
-    parts = []
-    for line in lines:
-        parts.append(line)
+    parts = list(lines)
     return ''.join(parts)
 
 @chrono
 def genexp_joiner(lines):
-    return ''.join(line for line in lines)
+    return ''.join(lines)
 
 if __name__=='__main__':
     lines = load_lines()
-    print('joining %s lines' % len(lines))
+    print(f'joining {len(lines)} lines')
     text0 = iadd_joiner(lines)
     text1 = list_joiner(lines)
     text2 = genexp_joiner(lines)

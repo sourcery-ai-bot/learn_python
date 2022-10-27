@@ -4,10 +4,10 @@ import sys
 def ask():
     prompt = '>'
     while True:
-        response = input(prompt)
-        if not response:
+        if response := input(prompt):
+            yield response
+        else:
             return 0
-        yield response
 
 
 def parse_args():
@@ -21,11 +21,7 @@ def fetch(producer):
 
 
 def main(args):
-    if args:
-        producer = parse_args
-    else:
-        producer = ask
-
+    producer = parse_args if args else ask
     total = 0
     count = 0
     gen = fetch(producer())
@@ -35,7 +31,7 @@ def main(args):
         total += term
         count += 1
         average = total / count
-        print('total: {}  average: {}'.format(total, average))
+        print(f'total: {total}  average: {average}')
 
 
 if __name__ == '__main__':

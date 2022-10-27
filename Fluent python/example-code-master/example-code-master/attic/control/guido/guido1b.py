@@ -17,8 +17,7 @@ def ger1():
     yield  # para evitar o StopIteration
 
 def ger2():
-    for i in ger1():
-        yield i
+    yield from ger1()
 
 def principal(g):
     print(next(g))

@@ -12,7 +12,7 @@ STATUS = '{} workers, elapsed time: {:.2f}s'
 
 
 def arcfour_test(size, key):
-    in_text = bytearray(randrange(256) for i in range(size))
+    in_text = bytearray(randrange(256) for _ in range(size))
     cypher_text = arcfour(key, in_text)
     out_text = arcfour(key, cypher_text)
     assert in_text == out_text, 'Failed arcfour_test'
@@ -39,8 +39,5 @@ def main(workers=None):
     print(STATUS.format(actual_workers, time.time() - t0))
 
 if __name__ == '__main__':
-    if len(sys.argv) == 2:
-        workers = int(sys.argv[1])
-    else:
-        workers = None
+    workers = int(sys.argv[1]) if len(sys.argv) == 2 else None
     main(workers)

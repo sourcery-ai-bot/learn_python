@@ -40,7 +40,7 @@ class Vector2d:
         self.y = float(y)
 
     def __iter__(self):
-        return (i for i in (self.x, self.y))  # <3>
+        return iter((self.x, self.y))
 
     def __repr__(self):
         class_name = type(self).__name__

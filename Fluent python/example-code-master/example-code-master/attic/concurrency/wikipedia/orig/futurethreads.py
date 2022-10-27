@@ -16,8 +16,11 @@ def save_month(year_month, verbose):
     dates = potd.list_days_of_month(year, month)
 
     with futures.ThreadPoolExecutor(max_workers=100) as executor:
-        downloads = dict((executor.submit(potd.save_one, date, verbose), date)
-                             for date in dates)
+        downloads = {
+            executor.submit(potd.save_one, date, verbose): date
+            for date in dates
+        }
+
 
         for future in futures.as_completed(downloads):
             date = downloads[future]

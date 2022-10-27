@@ -46,7 +46,7 @@ def show(text):
 def download_one(cc):  # <3>
     image = get_flag(cc)
     show(cc)
-    save_flag(image, cc.lower() + '.gif')
+    save_flag(image, f'{cc.lower()}.gif')
     return cc
 
 

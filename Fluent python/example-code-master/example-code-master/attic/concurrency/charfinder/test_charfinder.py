@@ -19,7 +19,7 @@ def test_query_type():
 
 
 def test_tokenize():
-    assert list(tokenize('')) == []
+    assert not list(tokenize(''))
     assert list(tokenize('a b')) == ['A', 'B']
     assert list(tokenize('a-b')) == ['A', 'B']
     assert list(tokenize('abc')) == ['ABC']
@@ -33,7 +33,7 @@ def test_index():
 
 def test_find_word_no_match(sample_index):
     res = list(sample_index.find_codes('qwertyuiop'))
-    assert len(res) == 0
+    assert not res
 
 
 def test_find_word_1_match(sample_index):
@@ -57,12 +57,12 @@ def test_find_word_2_matches(sample_index):
 
 def test_find_2_words_no_matches(sample_index):
     res = list(sample_index.find_codes('Euro letter'))
-    assert len(res) == 0
+    assert not res
 
 
 def test_find_2_words_no_matches_because_one_not_found(sample_index):
     res = list(sample_index.find_codes('letter qwertyuiop'))
-    assert len(res) == 0
+    assert not res
 
 
 def test_find_2_words_1_match(sample_index):
@@ -93,7 +93,7 @@ def test_find_1_word_2_matches_full(full_index):
 
 def test_find_3_words_no_matches_full(full_index):
     res = list(full_index.find_codes('no such character'))
-    assert len(res) == 0
+    assert not res
 
 
 def test_find_with_start(sample_index):

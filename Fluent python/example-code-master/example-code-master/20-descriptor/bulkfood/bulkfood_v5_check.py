@@ -67,7 +67,7 @@ def gt_zero(x):
 
 def non_blank(txt):
     txt = txt.strip()
-    return txt if txt else model.INVALID
+    return txt or model.INVALID
 
 
 class LineItem:

@@ -3,7 +3,7 @@ import unicodedata
 encodings = 'ascii latin1 cp1252 cp437 gb2312 utf-8 utf-16le'.split()
 
 widths = {encoding:1 for encoding in encodings[:-3]}
-widths.update(zip(encodings[-3:], (2, 4, 4)))
+widths |= zip(encodings[-3:], (2, 4, 4))
 
 chars = sorted([
     'A',  # \u0041 : LATIN CAPITAL LETTER A

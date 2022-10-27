@@ -77,16 +77,15 @@ def get_chars(request):
     peername = request.transport.get_extra_info('peername')
     print('Request from: {}, GET data: {!r}'.format(peername, dict(request.GET)))
     query = request.GET.get('query', '')
-    if query:
-        try:
-            start = int(request.GET.get('start', 0))
-            stop = int(request.GET.get('stop', sys.maxsize))
-        except ValueError:
-            raise web.HTTPBadRequest()
-        stop = min(stop, start+RESULTS_PER_REQUEST)
-        num_results, chars = index.find_chars(query, start, stop)
-    else:
+    if not query:
         raise web.HTTPBadRequest()
+    try:
+        start = int(request.GET.get('start', 0))
+        stop = int(request.GET.get('stop', sys.maxsize))
+    except ValueError:
+        raise web.HTTPBadRequest()
+    stop = min(stop, start+RESULTS_PER_REQUEST)
+    num_results, chars = index.find_chars(query, start, stop)
     text = ''.join(char if n % 64 else char+'\n'
             for n, char in enumerate(chars, 1))
     response_data = {'total': num_results, 'start': start, 'stop': stop}
@@ -94,7 +93,7 @@ def get_chars(request):
           query=query, **response_data))
     response_data['chars'] = text
     json_obj = json.dumps(response_data)
-    print('Sending {} characters'.format(len(text)))
+    print(f'Sending {len(text)} characters')
     headers = {'Access-Control-Allow-Origin': '*'}
     return web.Response(content_type=TEXT_TYPE, headers=headers, text=json_obj)
 
@@ -108,7 +107,7 @@ def init(loop, address, port):
     server = yield from loop.create_server(app.make_handler(),
                                            address, port)
     host = server.sockets[0].getsockname()
-    print('Serving on {}. Hit CTRL-C to stop.'.format(host))
+    print(f'Serving on {host}. Hit CTRL-C to stop.')
 
 
 def main(address="127.0.0.1", port=8888):

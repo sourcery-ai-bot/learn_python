@@ -38,10 +38,7 @@ def prompt(coro):
 def main():
     coro = adder()
     next(coro)  # prime it
-    if len(sys.argv) > 1:
-        res = process_args(coro, sys.argv[1:])
-    else:
-        res = prompt(coro)
+    res = process_args(coro, sys.argv[1:]) if len(sys.argv) > 1 else prompt(coro)
     print(res)
 
 main()

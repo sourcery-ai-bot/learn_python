@@ -21,4 +21,4 @@ class Sentence:
         return len(self.words)
 
     def __repr__(self):
-        return 'Sentence(%s)' % reprlib.repr(self.text)  # <4>
+        return f'Sentence({reprlib.repr(self.text)})'

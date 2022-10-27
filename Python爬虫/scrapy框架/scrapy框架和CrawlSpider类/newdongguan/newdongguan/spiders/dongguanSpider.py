@@ -32,9 +32,7 @@ class DongdongSpider(scrapy.Spider):
         # 如果没有内容，则返回空列表，则使用无图片情况下的匹配规则
         if len(content) == 0:
             content = response.xpath('//div[@class="c1 text14_2"]/text()').extract()
-            item['content'] = "".join(content).strip()
-        else:
-            item['content'] = "".join(content).strip()
+        item['content'] = "".join(content).strip()
         # 链接
         item['url'] = response.url
 

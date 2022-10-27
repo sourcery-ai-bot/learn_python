@@ -21,18 +21,17 @@ class SentenceSlice:
                            if RE_WORD.match(t)]
 
     def __repr__(self):
-        return 'SentenceSlice(%s)' % reprlib.repr(self.text)
+        return f'SentenceSlice({reprlib.repr(self.text)})'
 
     def __getitem__(self, position):
-        if isinstance(position, slice):
-            if position.step is not None:
-                raise LookupError('slice step is not supported')
-            start, stop = self._handle_defaults(position)
-            start, stop = self._widen(start, stop)
-            tokens = self.tokens[start:stop]
-            return SentenceSlice(''.join(tokens))
-        else:
+        if not isinstance(position, slice):
             return self.words[position]
+        if position.step is not None:
+            raise LookupError('slice step is not supported')
+        start, stop = self._handle_defaults(position)
+        start, stop = self._widen(start, stop)
+        tokens = self.tokens[start:stop]
+        return SentenceSlice(''.join(tokens))
 
     def __len__(self, index):
         return len(self.words)

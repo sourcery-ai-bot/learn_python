@@ -22,18 +22,18 @@ def tree(plist, l, a, f):
     from level to level.
     """
 
-    if l > 5:  #
-        lst = []
-        for p in plist:
-            p.forward(
-                l)  # 沿着当前的方向画画Move the turtle forward by the specified distance, in the direction the turtle is headed.
-            q = p.clone()  # Create and return a clone of the turtle with same position, heading and turtle properties.
-            p.left(a)  # Turn turtle left by angle units
-            q.right(
-                a)  # turn turtle right by angle units, nits are by default degrees, but can be set via the degrees() and radians() functions.
-            lst.append(p)  # 将元素增加到列表的最后
-            lst.append(q)
-        tree(lst, l * f, a, f)
+    if l <= 5:
+        return
+    lst = []
+    for p in plist:
+        p.forward(
+            l)  # 沿着当前的方向画画Move the turtle forward by the specified distance, in the direction the turtle is headed.
+        q = p.clone()  # Create and return a clone of the turtle with same position, heading and turtle properties.
+        p.left(a)  # Turn turtle left by angle units
+        q.right(
+            a)  # turn turtle right by angle units, nits are by default degrees, but can be set via the degrees() and radians() functions.
+        lst.extend((p, q))
+    tree(lst, l * f, a, f)
 
 
 def main():

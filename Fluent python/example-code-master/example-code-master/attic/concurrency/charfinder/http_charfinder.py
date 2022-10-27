@@ -61,7 +61,7 @@ def handle(request):
 
     text = PAGE_TPL.format(query=query, result=res,
                            message=msg, links=LINKS_HTML)
-    print('Sending {} results'.format(len(descriptions)))
+    print(f'Sending {len(descriptions)} results')
     return web.Response(content_type=CONTENT_TYPE, text=text)
 
 
@@ -73,7 +73,7 @@ def init(loop, address, port):
     server = yield from loop.create_server(app.make_handler(),
                                            address, port)
     host = server.sockets[0].getsockname()
-    print('Serving on {}. Hit CTRL-C to stop.'.format(host))
+    print(f'Serving on {host}. Hit CTRL-C to stop.')
 
 
 def main(address="127.0.0.1", port=8888):

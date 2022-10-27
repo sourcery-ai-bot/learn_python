@@ -32,10 +32,7 @@ class Card:
 
     def __init__(self, rank, suite, *, long_rank=None):
         self.rank = rank
-        if long_rank is None:
-            self.long_rank = self.rank
-        else:
-            self.long_rank = long_rank
+        self.long_rank = self.rank if long_rank is None else long_rank
         self.suite = suite
 
     def __str__(self):
@@ -47,8 +44,5 @@ class Card:
         return constructor.format(cls=self.__class__, args=args)
 
     def __bytes__(self):
-        if self.rank == '10':
-            rank_byte = b'T'
-        else:
-            rank_byte = bytes([ord(self.rank)])
+        rank_byte = b'T' if self.rank == '10' else bytes([ord(self.rank)])
         return rank_byte + bytes([self.suite.value])

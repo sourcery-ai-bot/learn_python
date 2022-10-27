@@ -13,7 +13,7 @@ COUNTRY_CONTINENT = {}
 
 for cont_code, cont_name in CONTINENTS.items():
     cont_suffix = cont_name.lower().replace(' ', '_')
-    with open('continent-' + cont_suffix + '.txt') as fp:
+    with open(f'continent-{cont_suffix}.txt') as fp:
         for country in fp:
             COUNTRY_CONTINENT[country.strip()] = cont_code
 

@@ -210,11 +210,7 @@ while True:
         newSex = input("请输入学生的性别：")
         newPhone = input("请输入学生的手机号：")
 
-        newInfos = {}
-        newInfos["name"] = newName
-        newInfos["sex"] = newSex
-        newInfos["phone"] = newPhone
-
+        newInfos = {"name": newName, "sex": newSex, "phone": newPhone}
         stuInfos.append(newInfos)
 
     elif key == "3":

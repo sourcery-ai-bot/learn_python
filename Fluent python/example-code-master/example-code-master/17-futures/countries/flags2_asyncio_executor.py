@@ -31,8 +31,7 @@ def get_flag(base_url, cc):
     resp = yield from aiohttp.request('GET', url)
     with contextlib.closing(resp):
         if resp.status == 200:
-            image = yield from resp.read()
-            return image
+            return (yield from resp.read())
         elif resp.status == 404:
             raise web.HTTPNotFound()
         else:
@@ -54,8 +53,7 @@ def download_one(cc, base_url, semaphore, verbose):
         raise FetchError(cc) from exc
     else:
         loop = asyncio.get_event_loop()  # <1>
-        loop.run_in_executor(None,  # <2>
-                save_flag, image, cc.lower() + '.gif')  # <3>
+        loop.run_in_executor(None, save_flag, image, f'{cc.lower()}.gif')
         status = HTTPStatus.ok
         msg = 'OK'
 
@@ -79,13 +77,13 @@ def downloader_coro(cc_list, base_url, verbose, concur_req):
         try:
             res = yield from future
         except FetchError as exc:
-            country_code = exc.country_code
             try:
                 error_msg = exc.__cause__.args[0]
             except IndexError:
                 error_msg = exc.__cause__.__class__.__name__
             if verbose and error_msg:
                 msg = '*** Error for {}: {}'
+                country_code = exc.country_code
                 print(msg.format(country_code, error_msg))
             status = HTTPStatus.error
         else:

@@ -13,5 +13,5 @@ class KnowsAdd:
     def __add__(self, other):
         return self, other
     def __repr__(self):
-        return '<{} object>'.format(type(self).__name__)
+        return f'<{type(self).__name__} object>'
 

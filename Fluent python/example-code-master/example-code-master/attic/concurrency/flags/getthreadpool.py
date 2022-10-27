@@ -43,9 +43,15 @@ if __name__ == '__main__':
 
     source_names = ', '.join(sorted(cf.SOURCE_URLS))
     parser = argparse.ArgumentParser(description='Download flag images.')
-    parser.add_argument('source', help='one of: ' + source_names)
-    parser.add_argument('-t', '--threads', type=int, default=DEFAULT_NUM_THREADS,
-                   help='number of threads (default: %s)' % DEFAULT_NUM_THREADS)
+    parser.add_argument('source', help=f'one of: {source_names}')
+    parser.add_argument(
+        '-t',
+        '--threads',
+        type=int,
+        default=DEFAULT_NUM_THREADS,
+        help=f'number of threads (default: {DEFAULT_NUM_THREADS})',
+    )
+
 
     args = parser.parse_args()
     main(args.source, args.threads)

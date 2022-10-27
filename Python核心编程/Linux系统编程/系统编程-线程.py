@@ -226,7 +226,7 @@ def test():
 
 def test2(args):
     print('---callback func --pid=%d' % os.getpid())
-    print('---callback func --args=%s' % args)
+    print(f'---callback func --args={args}')
 
 if __name__ == '__main__':
     pool = Pool(3)

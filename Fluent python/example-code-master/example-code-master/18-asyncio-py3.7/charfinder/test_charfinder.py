@@ -19,7 +19,7 @@ def test_query_type():
 
 
 def test_tokenize():
-    assert list(tokenize('')) == []
+    assert not list(tokenize(''))
     assert list(tokenize('a b')) == ['A', 'B']
     assert list(tokenize('a-b')) == ['A', 'B']
     assert list(tokenize('abc')) == ['ABC']

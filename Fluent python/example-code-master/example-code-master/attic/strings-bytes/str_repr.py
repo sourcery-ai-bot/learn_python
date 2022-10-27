@@ -9,6 +9,6 @@ for i in range(0x110000):
         last_len = len(r)
         if i > 0:
             prev_repr = repr(chr(i-1))[1:-1]
-            print('{}'.format(prev_repr))
+            print(f'{prev_repr}')
         print('U+{:04x} {:{max_len}} ...'.format(i, r, max_len=max(lengths)), end=' ')
         last_repr = r

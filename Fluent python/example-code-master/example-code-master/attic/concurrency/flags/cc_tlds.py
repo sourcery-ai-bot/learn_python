@@ -2,6 +2,7 @@
 Check country code TLDs
 """
 
+
 import shutil
 import os
 import json
@@ -33,4 +34,4 @@ print(sorted(not_tld))
 
 for iso_cc, name in sorted(iso_cc_db.items()):
     entity = tld_cc_db[iso_cc]
-    print('{}\t{}\t{}'.format(iso_cc, name, entity))
+    print(f'{iso_cc}\t{name}\t{entity}')

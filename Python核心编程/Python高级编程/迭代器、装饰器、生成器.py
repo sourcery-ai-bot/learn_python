@@ -222,10 +222,11 @@
 def upper_attr(future_class_name,future_class_paents,future_class_attr):
 
     # 遍历属性字典中，把不是__开头的属性名变为大写
-    newAttr={}
-    for name,value in future_class_attr.items():
-        if not name.startwith('__'):
-            newAttr[name.upper()]=value
+    newAttr = {
+        name.upper(): value
+        for name, value in future_class_attr.items()
+        if not name.startwith('__')
+    }
 
     # 调用type来创建一个类
     return type(future_class_name,future_class_paents,newAttr)

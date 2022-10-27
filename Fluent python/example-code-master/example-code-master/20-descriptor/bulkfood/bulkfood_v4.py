@@ -47,7 +47,7 @@ class Quantity:
         cls = self.__class__  # <2>
         prefix = cls.__name__
         index = cls.__counter
-        self.storage_name = '_{}#{}'.format(prefix, index)  # <3>
+        self.storage_name = f'_{prefix}#{index}'
         cls.__counter += 1  # <4>
 
     def __get__(self, instance, owner):  # <5>

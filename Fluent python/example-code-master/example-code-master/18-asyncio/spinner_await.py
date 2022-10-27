@@ -14,7 +14,7 @@ import sys
 async def spin(msg):  # <1>
     write, flush = sys.stdout.write, sys.stdout.flush
     for char in itertools.cycle('|/-\\'):
-        status = char + ' ' + msg
+        status = f'{char} {msg}'
         write(status)
         flush()
         write('\x08' * len(status))

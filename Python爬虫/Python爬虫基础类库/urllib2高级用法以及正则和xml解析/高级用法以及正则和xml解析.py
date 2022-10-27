@@ -223,7 +223,7 @@ def loadPage(url):
     link_list = content.xpath('//div[@class="t_con cleafix"]/div/div/div/a/@href')
 
     for link in link_list:
-        fullurl = "http://tieba.baidu.com" + link
+        fullurl = f"http://tieba.baidu.com{link}"
         # 组合为每个帖子的连接
         loadImage(fullurl)
 

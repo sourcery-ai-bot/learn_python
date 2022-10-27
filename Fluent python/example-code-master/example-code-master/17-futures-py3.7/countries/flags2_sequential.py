@@ -40,13 +40,12 @@ def download_one(cc, base_url, verbose=False):
         image = get_flag(base_url, cc)
     except requests.exceptions.HTTPError as exc:  # <2>
         res = exc.response
-        if res.status_code == 404:
-            status = HTTPStatus.not_found  # <3>
-            msg = 'not found'
-        else:  # <4>
+        if res.status_code != 404:
             raise
+        status = HTTPStatus.not_found  # <3>
+        msg = 'not found'
     else:
-        save_flag(image, cc.lower() + '.gif')
+        save_flag(image, f'{cc.lower()}.gif')
         status = HTTPStatus.ok
         msg = 'OK'
 
@@ -78,7 +77,7 @@ def download_many(cc_list, base_url, verbose, max_req):
             status = HTTPStatus.error  # <9>
         counter[status] += 1  # <10>
         if verbose and error_msg: # <11>
-            print('*** Error for {}: {}'.format(cc, error_msg))
+            print(f'*** Error for {cc}: {error_msg}')
 
     return counter  # <12>
 # END FLAGS2_DOWNLOAD_MANY_SEQUENTIAL

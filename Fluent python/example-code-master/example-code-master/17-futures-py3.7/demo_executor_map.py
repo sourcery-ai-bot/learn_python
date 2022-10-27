@@ -27,7 +27,7 @@ def main():
     display('results:', results)  # <6>.
     display('Waiting for individual results:')
     for i, result in enumerate(results):  # <7>
-        display('result {}: {}'.format(i, result))
+        display(f'result {i}: {result}')
 
 
 main()

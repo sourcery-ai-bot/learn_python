@@ -172,8 +172,7 @@ class UnicodeNameIndex:
             result = result_sets[0].intersection(*result_sets[1:])
             result = sorted(result)  # must sort for consistency
             result_iter = itertools.islice(result, start, stop)
-            return QueryResult(len(result),
-                               (char for char in result_iter))
+            return QueryResult(len(result), iter(result_iter))
         return QueryResult(0, ())
 
     def find_codes(self, query, start=0, stop=None):
@@ -207,7 +206,7 @@ class UnicodeNameIndex:
         elif counter == 1:
             msg = '1 match'
         else:
-            msg = '{} matches'.format(counter)
+            msg = f'{counter} matches'
         return '{} for {!r}'.format(msg, query)
 
 
@@ -217,10 +216,10 @@ def main(*args):
     n = 0
     for n, line in enumerate(index.find_description_strs(query), 1):
         print(line)
-    print('({})'.format(index.status(query, n)))
+    print(f'({index.status(query, n)})')
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:
         main(*sys.argv[1:])
     else:
-        print('Usage: {} word1 [word2]...'.format(sys.argv[0]))
+        print(f'Usage: {sys.argv[0]} word1 [word2]...')

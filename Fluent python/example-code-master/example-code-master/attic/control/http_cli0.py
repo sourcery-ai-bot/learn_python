@@ -8,10 +8,10 @@ import aiohttp
 def download(url):
     response = yield from aiohttp.request('GET', url)
     for k, v in response.items():
-        print('{}: {}'.format(k, v[:80]))
+        print(f'{k}: {v[:80]}')
 
     data = yield from response.read()
-    print('\nReceived {} bytes.\n'.format(len(data)))
+    print(f'\nReceived {len(data)} bytes.\n')
 
 if __name__ == '__main__':
     loop = asyncio.get_event_loop()

@@ -11,7 +11,7 @@ from daypicts import NoPictureForDate
 from daypicts import REMOTE_PICT_BASE_URL, PICT_EXCEPTIONS
 
 FIXTURE_DOC_DIR = 'fixture/docroot/'
-FIXTURE_TEMPLATE_POTD_DIR = FIXTURE_DOC_DIR + 'Template-POTD/'
+FIXTURE_TEMPLATE_POTD_DIR = f'{FIXTURE_DOC_DIR}Template-POTD/'
 
 def parse_args(argv):
     parser = argparse.ArgumentParser(description=main.__doc__)
@@ -54,7 +54,6 @@ def save_picture_urls(dates, save_path):
 
 
 def save_pictures(dates, save_path, verbose=False):
-    urls_ok = []
     for date, url in get_picture_urls(dates, verbose):
         response = requests.get(url)
         file_path = os.path.join(save_path,
@@ -74,7 +73,7 @@ def save_pictures(dates, save_path, verbose=False):
             fp.write(octets)
 
         print(file_path)
-    return urls_ok
+    return []
 
 
 def main(argv):

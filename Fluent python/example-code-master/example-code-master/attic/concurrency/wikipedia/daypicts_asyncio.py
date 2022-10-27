@@ -22,7 +22,7 @@ def get_picture_url(iso_date, semaphore):
     pict_url = POTD_IMAGE_RE.search(text)
     if pict_url is None:
         raise NoPictureForDate(iso_date)
-    return 'http:' + pict_url.group(1)
+    return f'http:{pict_url.group(1)}'
 
 
 @asyncio.coroutine
